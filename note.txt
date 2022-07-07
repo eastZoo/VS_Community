@@ -5,3 +5,6 @@ A. 가능한 아이디어 테스트 빨리 하고 싶을때, 서버와 인건비
 
 #1 Start
 - npx create-react-app react-twitter
+- 필요없는 파일 정리 후 
+- npm install --save firebase
+- fire base import setting
