@@ -1,0 +1,7 @@
+# Firebase
+실제 운영에서는 사용하지 않는다, 
+Q. 어떨때 사용하면 좋을까??
+A. 가능한 아이디어 테스트 빨리 하고 싶을때, 서버와 인건비 절약,
+
+#1 Start
+- npx create-react-app react-twitter
