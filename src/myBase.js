@@ -1,7 +1,5 @@
-// v9 compat packages are API compatible with v8 code
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -11,7 +9,6 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
     appId: process.env.REACT_APP_APP_ID,
   };
-  
-  export default firebase.initializeApp(firebaseConfig);
-
-  export const authService = firebase.auth();
+export default initializeApp(firebaseConfig);
+  export const firebaseInstance = getAuth();
+  export const authService = getAuth();
