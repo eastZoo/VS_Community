@@ -5,6 +5,7 @@ import {authService} from "../myBase";
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
 
   // 로그인 로그아웃 상태 확인 화면전환
   // user은 콘솔 찍어보면 나올꺼야
@@ -12,6 +13,8 @@ function App() {
     authService.onAuthStateChanged((user) => {
       if(user) {
         setIsLoggedIn(true);
+        // 로그인한 user 정보를 받아서 저장해놓는 곳 and 라우터로 전송
+        setUserObj(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -20,7 +23,7 @@ function App() {
   }, [])
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn}/> : "확인중입니다 손님!!.."}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : "확인중입니다 손님!!.."}
       <footer>&copy; {new Date().getFullYear()} react-twitter</footer>
     </>
     

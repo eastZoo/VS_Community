@@ -2,7 +2,7 @@ import {addDoc, collection, getDocs } from "firebase/firestore"
 import { dbService } from "myBase";
 import React, { useEffect, useState } from "react";
 
-const Home = () => {
+const Home = ({ userObj }) => {
     const [newTweet, setNewTweet] = useState("");
     const [newTweets, setNewTweets] = useState([]);
 
@@ -25,6 +25,7 @@ const Home = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+
         // 컬랙션 생성 함수 사용법, 
         await addDoc(collection(dbService, "newTweets"), {
             text: newTweet,
