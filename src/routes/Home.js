@@ -1,28 +1,41 @@
-import {addDoc, collection, getDocs } from "firebase/firestore"
+import {addDoc, collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore"
 import { dbService } from "myBase";
 import React, { useEffect, useState } from "react";
 
 const Home = ({ userObj }) => {
+    console.log(userObj);
     const [newTweet, setNewTweet] = useState("");
     const [newTweets, setNewTweets] = useState([]);
 
-
+    console.log(userObj);
     const getNewTweets = async () => {
         const newDbTweets = await getDocs(collection(dbService, "newTweets"));
         newDbTweets.forEach((document) => {
             const nweetObject = { 
                 ...document.data(), 
-                id: document.id 
+                id: document.id,
             };
-            console.log(document.data());
             setNewTweets((prev) => [nweetObject, ...prev]);
         });    
     };
-
+    
+    // 데이터 가져와서 보여주기
     useEffect(() => {
-        getNewTweets();
+        const q = query(
+        collection(dbService, "newTweets"),
+        orderBy("createdAt", "desc")
+        );
+        onSnapshot(q, (snapshot) => {
+            const newTweetArr = snapshot.docs.map((document) => ({
+                id: document.id,
+                ...document.data(),
+            }
+        ));
+        console.log("뭔가 일이 일어났어요")
+        setNewTweets(newTweetArr);
+        });
     }, []);
-
+        
     const onSubmit = async (event) => {
         event.preventDefault();
 
@@ -30,15 +43,15 @@ const Home = ({ userObj }) => {
         await addDoc(collection(dbService, "newTweets"), {
             text: newTweet,
             createdAt: Date.now(),
+            creatorId: userObj.uid,
           });
         setNewTweet("");
     };
 
     const onChange = (event) => {
         const { target: { value },
-    } = event;
-
-    setNewTweet(value);
+        } = event;
+        setNewTweet(value);
     };
 
     return (
