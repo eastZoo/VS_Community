@@ -58,10 +58,9 @@ const Home = ({ userObj }) => {
             <div>
                 {newTweets.map((newTweet) => (
                     // 컴포넌트로 모듈화
-                    <NewTweet key={newTweet.id} newTweetObj={newTweet}/>
+                    <NewTweet key={newTweet.id} newTweetObj={newTweet} isOwner={newTweet.creatorId === userObj.uid} />
                 ))}
             </div>
-
         </div>
     )
 }
