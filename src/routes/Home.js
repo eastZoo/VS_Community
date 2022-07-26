@@ -1,25 +1,14 @@
-import {addDoc, collection, getDocs, onSnapshot, orderBy, query } from "firebase/firestore"
+import NewTweet from "components/newTweet";
+import {addDoc, collection, onSnapshot, orderBy, query } from "firebase/firestore"
 import { dbService } from "myBase";
 import React, { useEffect, useState } from "react";
 
 const Home = ({ userObj }) => {
-    console.log(userObj);
     const [newTweet, setNewTweet] = useState("");
     const [newTweets, setNewTweets] = useState([]);
 
-    console.log(userObj);
-    const getNewTweets = async () => {
-        const newDbTweets = await getDocs(collection(dbService, "newTweets"));
-        newDbTweets.forEach((document) => {
-            const nweetObject = { 
-                ...document.data(), 
-                id: document.id,
-            };
-            setNewTweets((prev) => [nweetObject, ...prev]);
-        });    
-    };
-    
     // 데이터 가져와서 보여주기
+    // getNewTweet을 사용하지 않고 파베 snapshot 기능을 통해 실시간으로 채팅 업로드 re-render 적게
     useEffect(() => {
         const q = query(
         collection(dbService, "newTweets"),
@@ -31,6 +20,7 @@ const Home = ({ userObj }) => {
                 ...document.data(),
             }
         ));
+        console.log(newTweetArr);
         console.log("뭔가 일이 일어났어요")
         setNewTweets(newTweetArr);
         });
@@ -38,7 +28,6 @@ const Home = ({ userObj }) => {
         
     const onSubmit = async (event) => {
         event.preventDefault();
-
         // 컬랙션 생성 함수 사용법, 
         await addDoc(collection(dbService, "newTweets"), {
             text: newTweet,
@@ -68,9 +57,8 @@ const Home = ({ userObj }) => {
             </form>
             <div>
                 {newTweets.map((newTweet) => (
-                    <div key={newTweet.id}>
-                        <h4>{newTweet.text}</h4>
-                    </div>
+                    // 컴포넌트로 모듈화
+                    <NewTweet key={newTweet.id} newTweetObj={newTweet}/>
                 ))}
             </div>
 
