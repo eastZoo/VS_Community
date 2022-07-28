@@ -14,16 +14,35 @@ function App() {
       if(user) {
         setIsLoggedIn(true);
         // 로그인한 user 정보를 받아서 저장해놓는 곳 and 라우터로 전송
-        setUserObj(user);
+        setUserObj({
+          displayName : user.displayName,
+          uid : user.uid,
+          updateProfile: (arg) => user.updateProfile(arg),
+        });
       } else {
         setIsLoggedIn(false);
       }
       setInit(true);
     });
   }, []);
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (arg) => user.updateProfile(arg),
+    });
+  }
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : "확인중입니다 손님!!.."}
+      {init ? (
+        <AppRouter
+          refreshUser={refreshUser}
+          isLoggedIn={isLoggedIn} 
+          userObj={userObj}/>
+        )
+        : 
+        "확인중입니다 손님!!.."}
       <footer>&copy; {new Date().getFullYear()} react-twitter</footer>
     </>
     

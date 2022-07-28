@@ -1,11 +1,11 @@
 import { authService, dbService } from "myBase";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getxaDocs, query, where, orderBy } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { async } from "@firebase/util";
 import { updateProfile } from "@firebase/auth";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ refreshUser, userObj }) => {
     const history = useHistory();
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
     const onLogOutClick = () => {
@@ -22,7 +22,10 @@ const Profile = ({ userObj }) => {
     const onSubmit = async (event) => {
         event.preventDefault();
         if (userObj.displayName !== newDisplayName) {
-            await updateProfile(userObj, { displayName: newDisplayName });
+            await updateProfile(authService.currentUser, { 
+                displayName: newDisplayName 
+            });
+            refreshUser();
         }
     };
 
@@ -31,7 +34,7 @@ const Profile = ({ userObj }) => {
     //     //3. 트윗 불러오기
     //     //3-1. dbService의 컬렉션 중 "nweets" Docs에서 userObj의 uid와 동일한 creatorID를 가진 모든 문서를 내림차순으로 가져오는 쿼리(요청) 생성
     //     const q = query(
-    //         collection(dbService, "nweets"),
+    //         collection(dbService, "newTweets"),
     //         where("creatorId", "==", userObj.uid),
     //         orderBy("createdAt", "desc")
     //     );
