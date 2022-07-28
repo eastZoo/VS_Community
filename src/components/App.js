@@ -20,7 +20,7 @@ function App() {
       }
       setInit(true);
     });
-  }, [])
+  }, []);
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : "확인중입니다 손님!!.."}
