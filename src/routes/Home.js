@@ -32,10 +32,15 @@ const Home = ({ userObj }) => {
         
     const onSubmit = async (event) => {
         event.preventDefault();
-        const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-        const response = await uploadString(fileRef, image, "data_url");
-        //storage 참조 경로에 있는 파일의 URL을 다운로드해서 attachmentUrl 변수에 넣어서 업데이트
-        const imageUrl = await getDownloadURL(response.ref);
+        // let을 통해 사진 업로드 없을때 공백 들어가게 뮤터블
+        let imageUrl = ""
+        if(image !== ""){
+            const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+            const response = await uploadString(fileRef, image, "data_url");
+            //storage 참조 경로에 있는 파일의 URL을 다운로드해서 attachmentUrl 변수에 넣어서 업데이트
+            imageUrl = await getDownloadURL(response.ref);
+        }
+    
         const newTweetObj = {
             text: newTweet,
             createdAt: Date.now(),

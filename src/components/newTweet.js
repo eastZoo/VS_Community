@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore"
-import { dbService } from "myBase";
+import { dbService ,storageService  } from "myBase";
+import { deleteObject, ref } from "firebase/storage";
 
 const NewTweet = ({ newTweetObj, isOwner }) => {
     //편집 모드인지 아니지 알려주는 editing
@@ -12,11 +13,21 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
         const ok = window.confirm("진짜 삭제하실거에요??");
         console.log(ok);
         if (ok) {
-            //delete tweet
-            await deleteDoc(NweetTextRef);
+            try {
+                //해당하는 트윗 파이어스토어에서 삭제
+                await deleteDoc(NweetTextRef);
+                //삭제하려는 트윗에 이미지 파일이 있는 경우 이미지 파일 스토리지에서 삭제
+                if (newTweetObj.imageUrl !== "") {
+                    await deleteObject(desertRef);
+                }
+            } catch (error) {
+                window.alert("트윗을 삭제하는 데 실패했습니다!");
+            }
         }
     };
     const NweetTextRef = doc(dbService, "newTweets", `${newTweetObj.id}`);
+    // nweetObj의 attachmentUrl이 바로 삭제하려는 그 url임
+    const desertRef = ref(storageService, newTweetObj.imageUrl);
 
     const toggleEditing = () => setEditing((prev) => !prev);
     const onSubmit = async(event) => {
