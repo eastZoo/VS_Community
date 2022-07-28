@@ -1,7 +1,10 @@
 import NewTweet from "components/newTweet";
 import {addDoc, collection, onSnapshot, orderBy, query } from "firebase/firestore"
-import { dbService } from "myBase";
+import { dbService, storageService } from "myBase";
 import React, { useEffect, useState } from "react";
+import { ref, uploadString, getDownloadURL  } from "@firebase/storage";
+// 사진에 랜덤 이름을 주기 위한 라이브러리
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ userObj }) => {
     const [newTweet, setNewTweet] = useState("");
@@ -29,13 +32,22 @@ const Home = ({ userObj }) => {
         
     const onSubmit = async (event) => {
         event.preventDefault();
-        // 컬랙션 생성 함수 사용법, 
-        await addDoc(collection(dbService, "newTweets"), {
+        const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+        const response = await uploadString(fileRef, image, "data_url");
+        //storage 참조 경로에 있는 파일의 URL을 다운로드해서 attachmentUrl 변수에 넣어서 업데이트
+        const imageUrl = await getDownloadURL(response.ref);
+        const newTweetObj = {
             text: newTweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
-          });
+            imageUrl
+        }
+        await addDoc(collection(dbService, "newTweets"), newTweetObj);
+        // 업로드할때 아래 set함수들이 아무것도 하지 않는다 ""
+        //state 비워서 form 비우기
         setNewTweet("");
+        //파일 미리보기 img src 비워주기
+        setImage("");
     };
 
     const onChange = (event) => {

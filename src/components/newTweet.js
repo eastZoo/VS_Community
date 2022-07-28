@@ -45,6 +45,9 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
             ) : (
                 <>
                     <h4>{newTweetObj.text}</h4>
+                    {newTweetObj.imageUrl && (
+                        <img src={newTweetObj.imageUrl} width="50px" height="50px" />
+                    )}
                     {isOwner && (
                         // isOwner로 넘어온 값이 True일때 === 내가 쓴 글일 때만 버튼 보이기
                         <>
