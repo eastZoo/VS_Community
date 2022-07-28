@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 const Home = ({ userObj }) => {
     const [newTweet, setNewTweet] = useState("");
     const [newTweets, setNewTweets] = useState([]);
-    const [image, setImage] = useState();
+    const [image, setImage] = useState("");
 
     // 데이터 가져와서 보여주기
     // getNewTweet을 사용하지 않고 파베 snapshot 기능을 통해 실시간으로 채팅 업로드 re-render 적게
