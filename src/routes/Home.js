@@ -63,6 +63,8 @@ const Home = ({ userObj }) => {
         };
         reader.readAsDataURL(theFile);
     }
+
+    const onClearImage = () => setImage(null);
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -75,7 +77,12 @@ const Home = ({ userObj }) => {
                 />
                 <input type="file" accept="image/*" onChange={onFileChange}/>
                 <input type="submit" value="트윗!"/>
-                {image && <img src={image} width="50px" height="50px" />}
+                {image && (
+                    <div>
+                        <img src={image} width="50px" height="50px" />
+                        <button onClick={onClearImage}>삭제</button>
+                    </div>
+                )}
             </form>
             <div>
                 {newTweets.map((newTweet) => (
