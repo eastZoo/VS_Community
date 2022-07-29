@@ -74,7 +74,7 @@ const TweetForm = ({ userObj }) => {
                     value={newTweet}
                     onChange={onChange}
                     type="text"
-                    placeholder="What's on your mind?"
+                    placeholder="당신의 생각은 무엇인가요?"
                     maxLength={120}
                 />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />

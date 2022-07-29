@@ -61,7 +61,7 @@ const Profile = ({ refreshUser, userObj }) => {
                 />
                 <input
                     type="submit"
-                    value="Update Profile"
+                    value="프로필 수정"
                     className="formBtn"
                     style={{
                         marginTop: 10,

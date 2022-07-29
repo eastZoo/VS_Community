@@ -52,7 +52,7 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
                     <form onSubmit={onSubmit} className="container nweetEdit">
                         <input
                             type="text"
-                            placeholder="Edit your nweet"
+                            placeholder="트윗 수정"
                             value={newTweet}
                             required
                             autoFocus
