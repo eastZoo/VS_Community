@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore"
 import { dbService ,storageService  } from "myBase";
 import { deleteObject, ref } from "firebase/storage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const NewTweet = ({ newTweetObj, isOwner }) => {
     //편집 모드인지 아니지 알려주는 editing
@@ -44,27 +46,41 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
         setNewTweet(value);
     };
     return(
-        <div>
+        <div className="nweet">
             {editing ? (
                 <>
-                    <form onSubmit={onSubmit}>
-                        <input type="text" placeholder="글 수정하기" value={newTweet} required onChange={onChange}/>
-                        <input type="submit" value="전송"/>
+                    <form onSubmit={onSubmit} className="container nweetEdit">
+                        <input
+                            type="text"
+                            placeholder="Edit your nweet"
+                            value={newTweet}
+                            required
+                            autoFocus
+                            onChange={onChange}
+                            className="formInput"
+                        /> 
+                        <input type="submit" value="수정" className="formBtn" />
                     </form>
-                    <button onClick={toggleEditing}>취소</button>
+                    <span onClick={toggleEditing} className="formBtn cancelBtn">
+                        취소
+                    </span>
                 </>
             ) : (
                 <>
                     <h4>{newTweetObj.text}</h4>
                     {newTweetObj.imageUrl && (
-                        <img src={newTweetObj.imageUrl} width="50px" height="50px" />
+                        <img src={newTweetObj.imageUrl} />
                     )}
                     {isOwner && (
                         // isOwner로 넘어온 값이 True일때 === 내가 쓴 글일 때만 버튼 보이기
-                        <>
-                            <button onClick={onDeleteClick}>삭제</button>
-                            <button onClick={toggleEditing}>편집</button>
-                        </>
+                            <div class="nweet__actions">
+                                <span onClick={onDeleteClick}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </span>
+                                <span onClick={toggleEditing}>
+                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                </span>
+                            </div>
                     )}
                 </>
             )}

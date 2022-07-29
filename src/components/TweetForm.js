@@ -4,6 +4,8 @@ import { dbService, storageService } from "myBase";
 import { ref, uploadString, getDownloadURL  } from "@firebase/storage";
 // 사진에 랜덤 이름을 주기 위한 라이브러리
 import { v4 as uuidv4 } from 'uuid';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const TweetForm = ({ userObj }) => {
     const [newTweet, setNewTweet] = useState("");
@@ -11,6 +13,9 @@ const TweetForm = ({ userObj }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        if (newTweet === "") {
+            return;
+          }
         // let을 통해 사진 업로드 없을때 공백 들어가게 뮤터블
         let imageUrl = ""
         if(image !== ""){
@@ -60,25 +65,47 @@ const TweetForm = ({ userObj }) => {
         reader.readAsDataURL(theFile);
     }
 
-    const onClearImage = () => setImage(null);
+    const onClearImage = () => setImage("");
     return(
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="factoryForm">
+            <div className="factoryInput__container">
                 <input
-                value={newTweet} 
-                onChange={onChange} 
-                type="text" 
-                placeholder="너의 새로운 생각을 보여줘." 
-                maxLength={120}
+                    className="factoryInput__input"
+                    value={newTweet}
+                    onChange={onChange}
+                    type="text"
+                    placeholder="What's on your mind?"
+                    maxLength={120}
                 />
-                <input type="file" accept="image/*" onChange={onFileChange}/>
-                <input type="submit" value="트윗!"/>
-                {image && (
-                    <div>
-                        <img src={image} width="50px" height="50px" />
-                        <button onClick={onClearImage}>삭제</button>
+                <input type="submit" value="&rarr;" className="factoryInput__arrow" />
+            </div>
+            <label htmlFor="attach-file" className="factoryInput__label">
+                <span>사진 추가</span>
+                <FontAwesomeIcon icon={faPlus} />
+            </label>
+            <input
+                id="attach-file"
+                type="file"
+                accept="image/*"
+                onChange={onFileChange}
+                style={{
+                    opacity: 0,
+                }} />
+            {image && (
+                <div className="factoryForm__attachment">
+                    <img
+                        src={image}
+                        style={{
+                            backgroundImage: image,
+                        }}
+                    />
+                    <div className="factoryForm__clear" onClick={onClearImage}>
+                        <span>삭제</span>
+                        <FontAwesomeIcon icon={faTimes} />
                     </div>
-                )}
-            </form>
+                </div>
+            )}
+        </form>
     );
 };
 

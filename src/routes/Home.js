@@ -33,9 +33,9 @@ const Home = ({ userObj }) => {
         
 
     return (
-        <div>
+        <div className="container">
             <TweetForm userObj={userObj}/>
-            <div>
+            <div style={{ marginTop: 30 }}>
                 {newTweets.map((newTweet) => (
                     // 컴포넌트로 모듈화, userObj는 Home의 props
                     <NewTweet key={newTweet.id} newTweetObj={newTweet} isOwner={newTweet.creatorId === userObj.uid} />

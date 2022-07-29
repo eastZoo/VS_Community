@@ -13,4 +13,6 @@ A. 가능한 아이디어 테스트 빨리 하고 싶을때, 서버와 인건비
 - firebase docs 보면서 로그인 회원가입 구현 Easy
 
 - firebase snapshot 기능 구현
-- 
+
+
+- fortawesome 폰트 라이브러리!!!
