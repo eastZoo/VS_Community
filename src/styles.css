@@ -170,8 +170,8 @@ form {
 .nweet {
   margin-bottom: 20px;
   background-color: white;
-  width: 100%;
-  max-width: 320px;
+  width: 420px;
+  max-width: 430px;
   padding: 20px;
   border-radius: 10px;
   position: relative;

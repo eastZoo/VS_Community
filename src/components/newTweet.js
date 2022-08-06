@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore"
-import { dbService ,storageService  } from "myBase";
+import { dbService, storageService } from "myBase";
 import { deleteObject, ref } from "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,7 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
     //input에 입력된 text 업데이트 역할 newTweet
     const [newTweet, setNewTweet] = useState(newTweetObj.text);
 
-    const onDeleteClick = async() => {
+    const onDeleteClick = async () => {
         const ok = window.confirm("진짜 삭제하실거에요??");
         console.log(ok);
         if (ok) {
@@ -32,7 +32,7 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
     const desertRef = ref(storageService, newTweetObj.imageUrl);
 
     const toggleEditing = () => setEditing((prev) => !prev);
-    const onSubmit = async(event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         console.log(newTweetObj, newTweet);
         await updateDoc(NweetTextRef, { text: newTweet });
@@ -41,11 +41,11 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
     }
     const onChange = (event) => {
         const {
-            target : {value},
+            target: { value },
         } = event;
         setNewTweet(value);
     };
-    return(
+    return (
         <div className="nweet">
             {editing ? (
                 <>
@@ -58,7 +58,7 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
                             autoFocus
                             onChange={onChange}
                             className="formInput"
-                        /> 
+                        />
                         <input type="submit" value="수정" className="formBtn" />
                     </form>
                     <span onClick={toggleEditing} className="formBtn cancelBtn">
@@ -73,18 +73,18 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
                     )}
                     {isOwner && (
                         // isOwner로 넘어온 값이 True일때 === 내가 쓴 글일 때만 버튼 보이기
-                            <div class="nweet__actions">
-                                <span onClick={onDeleteClick}>
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </span>
-                                <span onClick={toggleEditing}>
-                                    <FontAwesomeIcon icon={faPencilAlt} />
-                                </span>
-                            </div>
+                        <div class="nweet__actions">
+                            <span onClick={onDeleteClick}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </span>
+                            <span onClick={toggleEditing}>
+                                <FontAwesomeIcon icon={faPencilAlt} />
+                            </span>
+                        </div>
                     )}
                 </>
             )}
-            
+
         </div>
     );
 };
