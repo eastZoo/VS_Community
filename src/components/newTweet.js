@@ -4,6 +4,7 @@ import { dbService, storageService } from "myBase";
 import { deleteObject, ref } from "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { LinkPreview } from "@dhaiwat10/react-link-preview";
 
 const NewTweet = ({ newTweetObj, isOwner }) => {
     //편집 모드인지 아니지 알려주는 editing
@@ -68,6 +69,7 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
             ) : (
                 <>
                     <h4>{newTweetObj.text}</h4>
+                    <LinkPreview url={newTweetObj.text} />
                     {newTweetObj.imageUrl && (
                         <img src={newTweetObj.imageUrl} />
                     )}

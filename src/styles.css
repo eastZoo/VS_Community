@@ -11,7 +11,7 @@ input {
 }
 
 body {
-  background-color: black;
+  background-color: #181818;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -38,7 +38,7 @@ form {
 }
 
 .container {
-  width: 100%;
+  width: 500px;
   max-width: 320px;
   display: flex;
   flex-direction: column;
@@ -88,6 +88,7 @@ form {
 
 .factoryForm {
   display: flex;
+  margin-left: 45px;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -106,9 +107,9 @@ form {
 .factoryInput__input {
   flex-grow: 1;
   height: 40px;
-  padding: 0px 20px;
+  padding: 0px 53px;
   color: white;
-  border: 1px solid #04aaff;
+  border: 1px solid #c4302b;
   border-radius: 20px;
   font-weight: 500;
   font-size: 12px;
@@ -117,7 +118,7 @@ form {
 .factoryInput__arrow {
   position: absolute;
   right: 0;
-  background-color: #04aaff;
+  background-color: #c4302b;
   height: 40px;
   width: 40px;
   padding: 10px 0px;
@@ -127,7 +128,7 @@ form {
 }
 
 .factoryInput__label {
-  color: #04aaff;
+  color: #c4302b;
   cursor: pointer;
 }
 
