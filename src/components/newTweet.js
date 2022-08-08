@@ -5,8 +5,9 @@ import { deleteObject, ref } from "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { LinkPreview } from "@dhaiwat10/react-link-preview";
+import NewTweetProfile from "./NewTweetProfile";
 
-const NewTweet = ({ newTweetObj, isOwner }) => {
+const NewTweet = ({ newTweetObj, isOwner, userObj }) => {
     //편집 모드인지 아니지 알려주는 editing
     const [editing, setEditing] = useState(false);
     //input에 입력된 text 업데이트 역할 newTweet
@@ -68,7 +69,8 @@ const NewTweet = ({ newTweetObj, isOwner }) => {
                 </>
             ) : (
                 <>
-                    <h4>{newTweetObj.text}</h4>
+                    <NewTweetProfile userObj={userObj} />
+                    <h4 href={newTweetObj.text}>{newTweetObj.text}</h4>
                     <LinkPreview url={newTweetObj.text} />
                     {newTweetObj.imageUrl && (
                         <img src={newTweetObj.imageUrl} />

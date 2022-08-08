@@ -29,6 +29,7 @@ const TweetForm = ({ userObj }) => {
             text: newTweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
+            creatorProfile: userObj.displayName,
             imageUrl
         }
         await addDoc(collection(dbService, "newTweets"), newTweetObj);
