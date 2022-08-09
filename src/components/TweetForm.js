@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {addDoc, collection } from "firebase/firestore"
+import React, { useState } from "react";
+import { addDoc, collection } from "firebase/firestore"
 import { dbService, storageService } from "myBase";
-import { ref, uploadString, getDownloadURL  } from "@firebase/storage";
+import { ref, uploadString, getDownloadURL } from "@firebase/storage";
 // 사진에 랜덤 이름을 주기 위한 라이브러리
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,20 +15,21 @@ const TweetForm = ({ userObj }) => {
         event.preventDefault();
         if (newTweet === "") {
             return;
-          }
+        }
         // let을 통해 사진 업로드 없을때 공백 들어가게 뮤터블
         let imageUrl = ""
-        if(image !== ""){
+        if (image !== "") {
             const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
             const response = await uploadString(fileRef, image, "data_url");
             //storage 참조 경로에 있는 파일의 URL을 다운로드해서 attachmentUrl 변수에 넣어서 업데이트
             imageUrl = await getDownloadURL(response.ref);
         }
-    
+
         const newTweetObj = {
             text: newTweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
+            creatorProfile: userObj.displayName,
             imageUrl
         }
         await addDoc(collection(dbService, "newTweets"), newTweetObj);
@@ -49,7 +50,7 @@ const TweetForm = ({ userObj }) => {
         // console.log(e.target.files);
         // event안에서 target 안으로 가서 파일을 받아오는 것을 의미
         const {
-            target : {files },
+            target: { files },
         } = event;
         // files 안에 있는 파일중 첫번째 파일만 가져온다 ( 많이 가져올 수 있음  )
         const theFile = files[0];
@@ -57,8 +58,8 @@ const TweetForm = ({ userObj }) => {
         const reader = new FileReader();
         reader.onloadend = (finishedEvent) => {
             console.log(finishedEvent);
-            const { 
-                currentTarget : {result}, 
+            const {
+                currentTarget: { result },
             } = finishedEvent;
             setImage(result);
         };
@@ -66,7 +67,7 @@ const TweetForm = ({ userObj }) => {
     }
 
     const onClearImage = () => setImage("");
-    return(
+    return (
         <form onSubmit={onSubmit} className="factoryForm">
             <div className="factoryInput__container">
                 <input
@@ -74,12 +75,12 @@ const TweetForm = ({ userObj }) => {
                     value={newTweet}
                     onChange={onChange}
                     type="text"
-                    placeholder="당신의 생각은 무엇인가요?"
+                    placeholder="팬치들과 공유할 Youtube URL을 넣어주세요!"
                     maxLength={120}
                 />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />
             </div>
-            <label htmlFor="attach-file" className="factoryInput__label">
+            {/* <label htmlFor="attach-file" className="factoryInput__label">
                 <span>사진 추가</span>
                 <FontAwesomeIcon icon={faPlus} />
             </label>
@@ -104,7 +105,7 @@ const TweetForm = ({ userObj }) => {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-            )}
+            )} */}
         </form>
     );
 };

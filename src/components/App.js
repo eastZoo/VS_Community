@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
-import {authService} from "../myBase";
+import { authService } from "../myBase";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -11,12 +11,12 @@ function App() {
   // user은 콘솔 찍어보면 나올꺼야
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if(user) {
+      if (user) {
         setIsLoggedIn(true);
         // 로그인한 user 정보를 받아서 저장해놓는 곳 and 라우터로 전송
         setUserObj({
-          displayName : user.displayName,
-          uid : user.uid,
+          displayName: user.displayName,
+          uid: user.uid,
           updateProfile: (arg) => user.updateProfile(arg),
         });
       } else {
@@ -38,16 +38,16 @@ function App() {
       {init ? (
         <AppRouter
           refreshUser={refreshUser}
-          isLoggedIn={isLoggedIn} 
-          userObj={userObj}/>
-        )
-        : 
+          isLoggedIn={isLoggedIn}
+          userObj={userObj} />
+      )
+        :
         "확인중입니다 손님!!.."}
-      <footer>&copy; {new Date().getFullYear()} react-twitter</footer>
+      <footer>&copy; {new Date().getFullYear()} eastZoo - for the Wak</footer>
     </>
-    
+
   );
-} 
+}
 
 export default App;
 
