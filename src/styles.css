@@ -100,7 +100,7 @@ form {
   align-items: center;
   width: 100%;
   justify-content: "center";
-  margin-top: 50px;
+  margin-bottom: 23px;
 }
 
 .factoryInput__container {
@@ -110,7 +110,7 @@ form {
   flex-wrap: wrap;
   position: relative;
   margin-bottom: 20px;
-  width: 100%;
+  width: 400px;
 }
 
 .factoryInput__input {
@@ -187,7 +187,7 @@ form {
 
 .nweet {
   margin-bottom: 20px;
-  background-color: white;
+  background-color: #474747;
   width: 420px;
   padding: 20px;
   padding-top: 43px;
@@ -201,8 +201,8 @@ form {
 }
 
 .nweet img {
-  right: 100px;
-  top: -32px;
+  right: 146px;
+  top: -17px;
   position: absolute;
   border-radius: 50%;
   width: 50px;
@@ -217,20 +217,31 @@ form {
 }
 
 .nweet__profile {
-  position: absolute;
-  left: 30px;
-  top: 15px;
+  left: -10px;
+  top: -60px;
   border-radius: 50%;
+  margin-bottom: -45px;
+  background-color: #383838;
+  width: 200px;
+  padding: 12px;
+  padding-top: 13px;
+  border-radius: 30px;
+  position: relative;
 }
 
 .nweet__profile span {
   position: relative;
-  left: 10px;
+  left: 49px;
   font-size: 15px;
+  color: rgb(199, 199, 199);
 }
 
 .nweet__actions span {
   cursor: pointer;
+}
+
+.nweet__actions svg {
+  color: rgb(157, 157, 157);
 }
 
 .nweet__actions span:first-child {
@@ -302,4 +313,23 @@ form {
   display: block;
   font-size: 12px;
   text-decoration: underline;
+}
+
+.notice_wraper {
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  font-size: large;
+}
+
+.notice_wraper img {
+  width: 484px;
+  height: 86px;
+  display: flex;
+}
+
+footer {
+  clear: both;
+  position: relative;
+  margin-top: 300px;
 }

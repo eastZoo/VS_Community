@@ -75,12 +75,12 @@ const TweetForm = ({ userObj }) => {
                     value={newTweet}
                     onChange={onChange}
                     type="text"
-                    placeholder="공유할 Youtube URL을 넣어주세요!"
+                    placeholder="팬치들과 공유할 Youtube URL을 넣어주세요!"
                     maxLength={120}
                 />
                 <input type="submit" value="&rarr;" className="factoryInput__arrow" />
             </div>
-            <label htmlFor="attach-file" className="factoryInput__label">
+            {/* <label htmlFor="attach-file" className="factoryInput__label">
                 <span>사진 추가</span>
                 <FontAwesomeIcon icon={faPlus} />
             </label>
@@ -105,7 +105,7 @@ const TweetForm = ({ userObj }) => {
                         <FontAwesomeIcon icon={faTimes} />
                     </div>
                 </div>
-            )}
+            )} */}
         </form>
     );
 };
