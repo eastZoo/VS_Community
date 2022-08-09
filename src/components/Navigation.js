@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
+import wakMain from "../image/wakMain.png";
+import wakProfile from "../image/wakProfile.png";
+
 const Navigation = ({ userObj }) => {
 
     return (
@@ -17,7 +20,7 @@ const Navigation = ({ userObj }) => {
                         alignItems: "center",
                         fontSize: 12,
                     }}>
-                        <img src="./wakMain.png" width="26px" height="26px" />
+                        <img src={wakMain} width="26px" height="26px" />
                         <span style={{ marginTop: 10 }}>
                             Main
                         </span>
@@ -34,7 +37,7 @@ const Navigation = ({ userObj }) => {
                             fontSize: 12,
                         }}
                     >
-                        <img src="./wakProfile.png" width="26px" height="26px" />
+                        <img src={wakProfile} width="26px" height="26px" />
                         <span style={{ marginTop: 10 }}>
                             {userObj.displayName
                                 ? `${userObj.displayName}의 프로필`
