@@ -7,6 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import wakMain from "../image/wakMain.png";
 import wakProfile from "../image/wakProfile.png";
 import wakNotice from "../image/wakNotice.png";
+import twitch from "../image/twitch.png";
 
 const Navigation = ({ userObj }) => {
 
@@ -62,6 +63,22 @@ const Navigation = ({ userObj }) => {
                             사용법
                         </span>
                     </Link>
+                </li>
+                <li>
+                    <div
+                        style={{
+                            marginLeft: 33,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            fontSize: 12,
+                        }}
+                    >
+                        <a href="https://www.twitch.tv/woowakgood"><img src={twitch} width="26px" height="26px" href="https://www.twitch.tv/woowakgood" /></a>
+                        <a style={{ marginTop: 10 }} href="https://www.twitch.tv/woowakgood">
+                            우왁굳 트위치
+                        </a>
+                    </div>
                 </li>
             </ul>
         </nav>
